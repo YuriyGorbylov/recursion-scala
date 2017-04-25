@@ -9,10 +9,9 @@ class RecursionBasicSpec extends RecursionBasic with WordSpecLike with Matchers 
 
   "RecursionBasic" should {
 
-    val randomList = List.fill(10)(Random.nextInt(1000))
-    val randomNum = Random.nextInt(10)
-    println(randomList)
-    println(randomNum)
+    val randomList = List.fill(10)(Random.nextInt(1000) + 1)
+    val randomNum = Random.nextInt(10) + 1
+    val randomString = Random.nextString(10)
 
     "Take a randomList of integers and returns the sum of all integers" in {
       val expected = randomList.sum
@@ -33,9 +32,8 @@ class RecursionBasicSpec extends RecursionBasic with WordSpecLike with Matchers 
       actual shouldBe expected
     }
 
-
     "Return the factorial of a number" in {
-      def factIter(n: Int) = {
+      def testFact(n: Int) = {
         var (count, result) = (n, 1)
         while(count > 0) {
           result = result * count
@@ -43,18 +41,47 @@ class RecursionBasicSpec extends RecursionBasic with WordSpecLike with Matchers 
         }
         result
       }
-      val expected = factIter(randomNum)
+      val expected = testFact(randomNum)
       val actual = fact(randomNum)
       actual shouldBe expected
     }
 
     "Calculates n-th fibonacci number" in {
-      def fib2(n: Int): Int = n match {
+      def testFib(n: Int): Int = n match {
         case 0 | 1 => 1
-        case _ => fib2(n - 1) + fib2(n - 2)
+        case _ => testFib(n - 1) + testFib(n - 2)
       }
-      val expected = fib2(randomNum - 1)
+      val expected = testFib(randomNum - 1)
       val actual = fib(randomNum)
+      actual shouldBe expected
+    }
+
+    "Raise a number by a power" in {
+      val randomPower = Random.nextInt(10)
+      val expected = Math.pow(randomNum, randomPower)
+      val actual = power(randomNum, randomPower)
+      actual shouldBe expected
+    }
+
+    "Reverse a string" in {
+      val expected = randomString.reverse
+      val actual = reverseString(randomString)
+      actual shouldBe expected
+    }
+
+    "Check if a string is a palindrome" in {
+      val strings = List("aaabbcbbaaa", "aaabbaaa", "a", "ab", "", "aaba", "aba", "aa")
+      def testIsPalindrome(string: String) = string.reverse == string
+      val expected = strings.filter(testIsPalindrome)
+      val actual = strings.filter(isPalindrome)
+      actual.length shouldBe expected.length
+    }
+
+    "Computes the Greatest Common Divisor of two numbers" in {
+      val randomNum2 = Random.nextInt(100) + 1
+      def testGcd(a: Int, b: Int): Int = if (b == 0) a else gcd(b, a % b)
+      val expected = testGcd(randomNum, randomNum2)
+      val actual = gcd(randomNum, randomNum2)
       actual shouldBe expected
     }
   }

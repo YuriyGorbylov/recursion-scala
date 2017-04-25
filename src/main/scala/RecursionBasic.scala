@@ -47,7 +47,7 @@ trait RecursionBasic {
   }
   val fact = 5
 
-  // Write a recursive function that calculates n-th fibonacci number
+  // 5. Write a recursive function that calculates n-th fibonacci number
   def fib(n: Int): Int = {
     @tailrec
     def loop(n: Int, current: Int, next: Int): Int = n match {
@@ -58,7 +58,7 @@ trait RecursionBasic {
     else loop(n, 1 , 1)
   }
 
-  // Write a recursive exponentiation function that raises a base by a power.
+  // 6. Write a recursive exponentiation function that raises a number by a power.
   def power(n: Int, power: Int): Double = {
     @tailrec
     def loop(n: Int, power: Int, acc: Double): Double = power match {
@@ -69,7 +69,7 @@ trait RecursionBasic {
     loop(n, power, 1)
   }
 
-  // Write a recursive function to reverse a string
+  // 7. Write a recursive function to reverse a string
   def reverseString(string: String): String = {
     @tailrec
     def loop(chars: List[Char], reversed: List[Char]): List[Char] = chars match {
@@ -79,7 +79,7 @@ trait RecursionBasic {
     loop(string.toCharArray.toList, List()) mkString
   }
 
-  // Write a recursive function that checks if a string is a palindrome. Returns true or false.
+  // 8. Write a recursive function that checks if a string is a palindrome. Returns true or false.
   def isPalindrome(string: String): Boolean = {
     @tailrec
     def loop(string: String, result: Boolean): Boolean = string match {
@@ -89,30 +89,14 @@ trait RecursionBasic {
     loop(string, true)
   }
 
-  // Write a function that computes the Greatest Common Divisor of two numbers
-  def gcd(first: Int, second: Int): Int = {
-    def loop(first: Int, second: Int, gcd: Int): Int = gcd match {
-      case g if first % gcd == 0 && second % gcd == 0 => gcd
-      case _ => loop(first, second, gcd - 1)
-    }
-    loop(first, second, first.min(second))
-  }
-
-  // Write a function that finds the index of a value in a sorted list
-  def bSearch(vector: Vector[Int], value: Int): Option[Int] = {
+  // 9. Write a function that computes the Greatest Common Divisor of two numbers
+  def gcd(a: Int, b: Int): Int = {
     @tailrec
-    def loop(vector: Vector[Int], value: Int, low: Int, high: Int): Option[Int] = (low, high) match {
-      case (l, h) if l > h => None
-      case (l, h) =>
-        val index = l + (h - l) / 2
-        vector(index) match {
-          case mid if mid == value => Some(index)
-          case mid if mid > value => loop(vector, value, low, index - 1)
-          case mid if mid <= value => loop(vector, value, index + 1, high)
-        }
+    def loop(a: Int, b: Int, gcd: Int): Int = gcd match {
+      case 0 | 1 => 1
+      case g if a % g == 0 && b % g == 0 => g
+      case g => loop(a, b, g - 1)
     }
-    loop(vector, value, 0, vector.length - 1)
+    loop(a, b, a.min(b))
   }
-
-
 }
