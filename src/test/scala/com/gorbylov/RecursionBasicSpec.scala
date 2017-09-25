@@ -1,10 +1,9 @@
+package com.gorbylov
+
 import org.scalatest.{Matchers, WordSpecLike}
 
 import scala.util.Random
 
-/**
-  * Created by IGorbylov on 17.04.2017.
-  */
 class RecursionBasicSpec extends RecursionBasic with WordSpecLike with Matchers {
 
   "RecursionBasic" should {

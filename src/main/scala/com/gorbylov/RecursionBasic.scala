@@ -1,8 +1,7 @@
+package com.gorbylov
+
 import scala.annotation.tailrec
 
-/**
-  * Created by IGorbylov on 17.04.2017.
-  */
 trait RecursionBasic {
 
   // 1. Write a recursive function that takes a list of integers and returns the sum of all integers.

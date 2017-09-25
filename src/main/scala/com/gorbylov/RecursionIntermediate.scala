@@ -1,15 +1,14 @@
+package com.gorbylov
+
 import scala.annotation.tailrec
 
-/**
-  * Created by IGorbylov on 17.04.2017.
-  */
 trait RecursionIntermediate {
 
   // 1. Write the Ackermann function
-  def ackerman(mm: Int, nn: Int): Int = (mm, nn) match {
+  def ackermanFunc(mm: Int, nn: Int): Int = (mm, nn) match {
     case (m, n) if m == 0 => n + 1
-    case (m, n) if m > 0 && n == 0 => ackerman(m - 1, 1)
-    case (m, n) if m > 0 && n > 0 => ackerman(m - 1, ackerman(m, n - 1))
+    case (m, n) if m > 0 && n == 0 => ackermanFunc(m - 1, 1)
+    case (m, n) if m > 0 && n > 0 => ackermanFunc(m - 1, ackermanFunc(m, n - 1))
   }
   val (m, n) = (3, 10)
 
@@ -39,7 +38,7 @@ trait RecursionIntermediate {
   val quickList = List(8, 1, 15, 67, 22, -10)
 
   // 4. Write a recursive function which verifies the balancing of parentheses in a string
-  def parantless(str: String): Boolean = {
+  def parenthesesBalance(str: String): Boolean = {
     @tailrec
     def loop(chars: List[Char], count: Int): Boolean = {
       if (count < 0) {
@@ -55,10 +54,10 @@ trait RecursionIntermediate {
   }
 
   // 5. Write a function that computes the elements of Pascal’s triangle by means of a recursive process.
-  def triangle(colomn: Int, row: Int): Int = (colomn, row) match {
+  def pascalTriangle(colomn: Int, row: Int): Int = (colomn, row) match {
     case (0, _) => 1
     case (c, r) if c == r => 1
-    case (c, r) => triangle(c, r - 1) + triangle(c - 1, r - 1)
+    case (c, r) => pascalTriangle(c, r - 1) + pascalTriangle(c - 1, r - 1)
   }
 
   // 6. Find the highest sum of non-consecutive numbers
@@ -93,5 +92,18 @@ trait RecursionIntermediate {
         loop(tail, newCurrent, newLongest)
     }
     loop(array, List(), List()) reverse
+  }
+
+  // 9. Generate all permutations of a given string
+  def permutations(s: String): Seq[String] = {
+    def loop(string: String, n: Int): Seq[String] = n match {
+      case 1 => string.map(_.toString)
+      case _ =>
+        for {
+          ch <- string
+          perm <- loop(string.replaceFirst(ch.toString, ""), n - 1)
+        } yield ch + perm
+    }
+    loop(s, s.length)
   }
 }

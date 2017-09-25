@@ -1,10 +1,9 @@
+package com.gorbylov
+
 import org.scalatest.{Matchers, WordSpecLike}
 
 import scala.util.Random
 
-/**
-  * Created by IGorbylov on 17.04.2017.
-  */
 class RecursionIntermediateSpec extends RecursionIntermediate with WordSpecLike with Matchers {
 
   "RecursionIntermediate" should {
@@ -12,7 +11,7 @@ class RecursionIntermediateSpec extends RecursionIntermediate with WordSpecLike 
     val randomList = List.fill(10)(Random.nextInt(1000))
 
     "Compute Ackerman function" in {
-      ackerman(3, 10) shouldBe 8189
+      ackermanFunc(3, 10) shouldBe 8189
     }
 
     "Find the index of a value in a sorted list" in {
@@ -38,14 +37,14 @@ class RecursionIntermediateSpec extends RecursionIntermediate with WordSpecLike 
           case (acc, ch) if ch == ')' => acc - 1
         } == 0
       )
-      val actual = strings.filter(parantless)
+      val actual = strings.filter(parenthesesBalance)
       actual.length shouldBe expected.length
     }
 
     "Computes the elements of Pascal’s triangle" in {
-      triangle(2, 4) shouldBe 6
-      triangle(0, 0) shouldBe 1
-      triangle(2, 2) shouldBe 1
+      pascalTriangle(2, 4) shouldBe 6
+      pascalTriangle(0, 0) shouldBe 1
+      pascalTriangle(2, 2) shouldBe 1
     }
 
     "Find the highest sum of non-consecutive numbers" in {
@@ -71,6 +70,14 @@ class RecursionIntermediateSpec extends RecursionIntermediate with WordSpecLike 
       val expected = List(1, 10, 12)
       val actual = longestIncreasing(list)
       actual shouldBe expected
+    }
+
+    "Generate all permutations of a given string" in {
+      val string = Random.nextString(4)
+      val expected = string.permutations.toList
+      val actual = permutations(string)
+      actual.size shouldBe expected.size
+      actual.forall(expected.contains(_)) shouldBe true
     }
   }
 }
